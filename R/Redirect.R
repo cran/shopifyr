@@ -1,8 +1,8 @@
 #
 #   shopifyr: An R Interface to the Shopify API
 #
-#   Copyright (C) 2014 Charlie Friedemann cfriedem @ gmail.com
-#   Shopify API (c) 2006-2014 Shopify Inc.
+#   Copyright (C) 2015 Charlie Friedemann cfriedem @ gmail.com
+#   Shopify API (c) 2006-2015 Shopify Inc.
 #
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -20,49 +20,50 @@
 
 ########### Redirect functions ########### 
 #' @templateVar name Redirect
+#' @templateVar urlSlug online_store/redirect
 #' @template api
 NULL
 
-## GET /admin/redirects.json
+## GET /admin/api/#{api_version}/redirects.json
 ## Receive a list of all Redirects
 #' @rdname Redirect
 getRedirects <- function(...) {
-    .fetchAll("redirects", ...)
+    private$.fetchAll("redirects", ...)
 }
 
-## GET /admin/redirects/count.json
+## GET /admin/api/#{api_version}/redirects/count.json
 ## Receive a count of all Redirects
 #' @rdname Redirect
 getRedirectsCount <- function(...) {
-    .request(.url("redirects","count"), ...)$count
+    private$.request(private$.url("redirects","count"), ...)$count
 }
 
-## GET /admin/redirects/#{id}.json
+## GET /admin/api/#{api_version}/redirects/#{id}.json
 ## Receive a single Redirect
 #' @rdname Redirect
 getRedirect <- function(redirectId, ...) {
-    .request(.url("redirects",redirectId), ...)$redirect
+    private$.request(private$.url("redirects",redirectId), ...)$redirect
 }
 
-## POST /admin/redirects.json
+## POST /admin/api/#{api_version}/redirects.json
 ## Create a new Redirect
 #' @rdname Redirect
 createRedirect <- function(redirect, ...) {
-    redirect <- .wrap(redirect, "redirect", check=c("path","target"))
-    .request("redirects", reqType="POST", data=redirect, ...)$redirect
+    redirect <- private$.wrap(redirect, "redirect", check=c("path","target"))
+    private$.request("redirects", reqType="POST", data=redirect, ...)$redirect
 }
 
-## PUT /admin/redirects/#{id}.json
+## PUT /admin/api/#{api_version}/redirects/#{id}.json
 ## Modify an existing Redirect
 #' @rdname Redirect
 modifyRedirect <- function(redirect, ...) {
-    redirect <- .wrap(redirect, "redirect")
-    .request(.url("redirects",redirect$redirect$id), reqType="PUT", data=redirect, ...)$redirect
+    redirect <- private$.wrap(redirect, "redirect")
+    private$.request(private$.url("redirects",redirect$redirect$id), reqType="PUT", data=redirect, ...)$redirect
 }
 
-## DELETE /admin/redirects/#{id}.json
+## DELETE /admin/api/#{api_version}/redirects/#{id}.json
 ## Remove a Redirect from the database
 #' @rdname Redirect
 deleteRedirect <- function(redirectId, ...) {
-    .request(.url("redirects",redirectId), reqType="DELETE", ...)
+    private$.request(private$.url("redirects",redirectId), reqType="DELETE", ...)
 }

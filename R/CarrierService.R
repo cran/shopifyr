@@ -1,8 +1,8 @@
 #
 #   shopifyr: An R Interface to the Shopify API
 #
-#   Copyright (C) 2014 Charlie Friedemann cfriedem @ gmail.com
-#   Shopify API (c) 2006-2014 Shopify Inc.
+#   Copyright (C) 2015 Charlie Friedemann cfriedem @ gmail.com
+#   Shopify API (c) 2006-2015 Shopify Inc.
 #
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -21,42 +21,43 @@
 ########### CarrierService functions ########### 
 #' @templateVar name CarrierService
 #' @templateVar slug service
+#' @templateVar urlSlug shipping_and_fulfillment/carrierservice
 #' @template api
 NULL
 
-## POST /admin/carrier_services.json
+## POST /admin/api/#{api_version}/carrier_services.json
 ## Create a new CarrierService
 #' @rdname CarrierService
 createCarrierService <- function(service, ...) {
-    service <- .wrap(service, "carrier_service", check=FALSE)
-    .request("carrier_services", reqType="POST", data=service, ...)$carrier_service
+    service <- private$.wrap(service, "carrier_service", check=FALSE)
+    private$.request("carrier_services", reqType="POST", data=service, ...)$carrier_service
 }
 
-## PUT /admin/carrier_services/#{id}.json
+## PUT /admin/api/#{api_version}/carrier_services/#{id}.json
 ## Modify an existing CarrierService
 #' @rdname CarrierService
 modifyCarrierService <- function(service, ...) {
-    service <- .wrap(service, "carrier_service")
-    .request(.url("carrier_services",service$carrier_service$id), reqType="PUT", data=service, ...)$carrier_service
+    service <- private$.wrap(service, "carrier_service")
+    private$.request(private$.url("carrier_services",service$carrier_service$id), reqType="PUT", data=service, ...)$carrier_service
 }
 
-## GET /admin/carrier_services.json
+## GET /admin/api/#{api_version}/carrier_services.json
 ## Receive a list of all CarrierServices
 #' @rdname CarrierService
 getCarrierServices <- function(...) {
-    .request("carrier_services", ...)$carrier_services
+    private$.request("carrier_services", ...)$carrier_services
 }
 
-## GET /admin/carrier_services/#{id}.json
+## GET /admin/api/#{api_version}/carrier_services/#{id}.json
 ## Receive a single CarrierService
 #' @rdname CarrierService
 getCarrierService <- function(serviceId, ...) {
-    .request(.url("carrier_services",serviceId), ...)$carrier_service
+    private$.request(private$.url("carrier_services",serviceId), ...)$carrier_service
 }
 
-## DELETE /admin/carrier_services/#{id}.json
+## DELETE /admin/api/#{api_version}/carrier_services/#{id}.json
 ## Remove a CarrierService from the database
 #' @rdname CarrierService
 deleteCarrierService <- function(serviceId, ...) {
-    .request(.url("carrier_services",serviceId), reqType="DELETE", ...)
+    private$.request(private$.url("carrier_services",serviceId), reqType="DELETE", ...)
 }

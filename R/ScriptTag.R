@@ -1,8 +1,8 @@
 #
 #   shopifyr: An R Interface to the Shopify API
 #
-#   Copyright (C) 2014 Charlie Friedemann cfriedem @ gmail.com
-#   Shopify API (c) 2006-2014 Shopify Inc.
+#   Copyright (C) 2015 Charlie Friedemann cfriedem @ gmail.com
+#   Shopify API (c) 2006-2015 Shopify Inc.
 #
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -20,49 +20,50 @@
 
 ########### ScriptTag functions ########### 
 #' @templateVar name ScriptTag
+#' @templateVar urlSlug online_store/scripttag
 #' @template api
 NULL
 
-## GET /admin/script_tags.json
+## GET /admin/api/#{api_version}/script_tags.json
 ## Receive a list of all ScriptTags
 #' @rdname ScriptTag
 getScriptTags <- function(...) {
-    .fetchAll("script_tags", ...)
+    private$.fetchAll("script_tags", ...)
 }
 
-## GET /admin/script_tags/count.json
+## GET /admin/api/#{api_version}/script_tags/count.json
 ## Receive a count of all ScriptTags
 #' @rdname ScriptTag
 getScriptTagsCount <- function(...) {
-    .request(.url("script_tags","count"), ...)$count
+    private$.request(private$.url("script_tags","count"), ...)$count
 }
 
-## GET /admin/script_tags/#{id}.json
+## GET /admin/api/#{api_version}/script_tags/#{id}.json
 ## Receive a single ScriptTag
 #' @rdname ScriptTag
 getScriptTag <- function(scriptTagId, ...) {
-    .request(.url("script_tags",scriptTagId), ...)$script_tag
+    private$.request(private$.url("script_tags",scriptTagId), ...)$script_tag
 }
 
-## POST /admin/script_tags.json
+## POST /admin/api/#{api_version}/script_tags.json
 ## Create a new ScriptTag
 #' @rdname ScriptTag
 createScriptTag <- function(scriptTag, ...) {
-    scriptTag <- .wrap(scriptTag, "script_tag", check=c("src","event"))
-    .request("script_tags", reqType="POST", data=scriptTag, ...)$script_tag
+    scriptTag <- private$.wrap(scriptTag, "script_tag", check=c("src","event"))
+    private$.request("script_tags", reqType="POST", data=scriptTag, ...)$script_tag
 }
 
-## PUT /admin/script_tags/#{id}.json
+## PUT /admin/api/#{api_version}/script_tags/#{id}.json
 ## Modify an existing ScriptTag
 #' @rdname ScriptTag
 modifyScriptTag <- function(scriptTag, ...) {
-    scriptTag <- .wrap(scriptTag, "script_tag")
-    .request(.url("script_tags",scriptTag$script_tag$id), reqType="PUT", data=scriptTag, ...)$script_tag
+    scriptTag <- private$.wrap(scriptTag, "script_tag")
+    private$.request(private$.url("script_tags",scriptTag$script_tag$id), reqType="PUT", data=scriptTag, ...)$script_tag
 }
 
-## DELETE /admin/script_tags/#{id}.json
+## DELETE /admin/api/#{api_version}/script_tags/#{id}.json
 ## Remove a ScriptTag from the database
 #' @rdname ScriptTag
 deleteScriptTag <- function(scriptTagId, ...) {
-    .request(.url("script_tags",scriptTagId), reqType="DELETE", ...)
+    private$.request(private$.url("script_tags",scriptTagId), reqType="DELETE", ...)
 }

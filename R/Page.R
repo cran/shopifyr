@@ -1,8 +1,8 @@
 #
 #   shopifyr: An R Interface to the Shopify API
 #
-#   Copyright (C) 2014 Charlie Friedemann cfriedem @ gmail.com
-#   Shopify API (c) 2006-2014 Shopify Inc.
+#   Copyright (C) 2015 Charlie Friedemann cfriedem @ gmail.com
+#   Shopify API (c) 2006-2015 Shopify Inc.
 #
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -20,49 +20,50 @@
 
 ########### Page functions ########### 
 #' @templateVar name Page
+#' @templateVar urlSlug online_store/page
 #' @template api
 NULL
 
-## GET /admin/pages.json
-## Receive a list of all Pages
+## GET /admin/api/#{api_version}/pages.json
+## Retrieves a list of pages
 #' @rdname Page
 getPages <- function(...) {
-    .fetchAll("pages", ...)
+    private$.fetchAll("pages", ...)
 }
 
-## GET /admin/pages/count.json
-## Receive a count of all Pages
+## GET /admin/api/#{api_version}/pages/count.json
+##  a page count
 #' @rdname Page
 getPagesCount <- function(...) {
-    .request(.url("pages","count"), ...)$count
+    private$.request(private$.url("pages","count"), ...)$count
 }
 
-## GET /admin/pages/#{id}.json
-## Receive a single Page
+## GET /admin/api/#{api_version}/pages/#{page_id}.json
+## Retrieves a single page by its ID
 #' @rdname Page
 getPage <- function(pageId, ...) {
-    .request(.url("pages",pageId), ...)$page
+    private$.request(private$.url("pages",pageId), ...)$page
 }
 
-## POST /admin/pages.json
+## POST /admin/api/#{api_version}/pages.json
 ## Create a new Page
 #' @rdname Page
 createPage <- function(page, ...) {
-    page <- .wrap(page, "page", check=FALSE)
-    .request("pages", reqType="POST", data=page, ...)$page
+    page <- private$.wrap(page, "page", check=FALSE)
+    private$.request("pages", reqType="POST", data=page, ...)$page
 }
 
-## PUT /admin/pages/#{id}.json
-## Modify an existing Page
+## PUT /admin/api/#{api_version}/pages/#{page_id}.json
+## Updates a page
 #' @rdname Page
 modifyPage <- function(page, ...) {
-    page <- .wrap(page, "page")
-    .request(.url("pages",page$page$id), reqType="POST", data=page, ...)$page
+    page <- private$.wrap(page, "page")
+    private$.request(private$.url("pages",page$page$id), reqType="PUT", data=page, ...)$page
 }
 
-## DELETE /admin/pages/#{id}.json
-## Remove a Page from the database
+## DELETE /admin/api/#{api_version}/pages/#{page_id}.json
+## Deletes a page
 #' @rdname Page
 deletePage <- function(pageId, ...) {
-    .request(.url("pages",pageId), reqType="DELETE", ...)
+    private$.request(private$.url("pages",pageId), reqType="DELETE", ...)
 }

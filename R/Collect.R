@@ -1,8 +1,8 @@
 #
 #   shopifyr: An R Interface to the Shopify API
 #
-#   Copyright (C) 2014 Charlie Friedemann cfriedem @ gmail.com
-#   Shopify API (c) 2006-2014 Shopify Inc.
+#   Copyright (C) 2015 Charlie Friedemann cfriedem @ gmail.com
+#   Shopify API (c) 2006-2015 Shopify Inc.
 #
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -20,41 +20,42 @@
 
 ########### Collect functions ########### 
 #' @templateVar name Collect
+#' @templateVar urlSlug products/collect
 #' @template api
 NULL
 
-## POST /admin/collects.json
+## POST /admin/api/#{api_version}/collects.json
 ## Create a new Collect
 #' @rdname Collect
 createCollect <- function(collect, ...) {
-    collect <- .wrap(collect, "collect", check=c("product_id","collection_id"))
-    .request("collects", reqType="POST", data=collect, ...)$collect
+    collect <- private$.wrap(collect, "collect", check=c("product_id","collection_id"))
+    private$.request("collects", reqType="POST", data=collect, ...)$collect
 }
 
-## DELETE /admin/collects/#{id}.json
+## DELETE /admin/api/#{api_version}/collects/#{id}.json
 ## Remove a Collect from the database
 #' @rdname Collect
 deleteCollect <- function(collectId, ...) {
-    .request(.url("collects",collectId), reqType="DELETE", ...)
+    private$.request(private$.url("collects",collectId), reqType="DELETE", ...)
 }
 
-## GET /admin/collects.json
+## GET /admin/api/#{api_version}/collects.json
 ## Receive a list of all Collects
 #' @rdname Collect
 getCollects <- function(...) {
-    .fetchAll("collects", ...)
+    private$.fetchAll("collects", ...)
 }
 
-## GET /admin/collects/count.json
+## GET /admin/api/#{api_version}/collects/count.json
 ## Receive a count of all Collects
 #' @rdname Collect
 getCollectsCount <- function(...) {
-    .request(.url("collects","count"), ...)$count
+    private$.request(private$.url("collects","count"), ...)$count
 }
 
-## GET /admin/collects/#{id}.json
+## GET /admin/api/#{api_version}/collects/#{id}.json
 ## Receive a single Collect
 #' @rdname Collect
 getCollect <- function(collectId, ...) {
-    .request(.url("collects",collectId), ...)$collect
+    private$.request(private$.url("collects",collectId), ...)$collect
 }

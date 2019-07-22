@@ -1,8 +1,8 @@
 #
 #   shopifyr: An R Interface to the Shopify API
 #
-#   Copyright (C) 2014 Charlie Friedemann cfriedem @ gmail.com
-#   Shopify API (c) 2006-2014 Shopify Inc.
+#   Copyright (C) 2015 Charlie Friedemann cfriedem @ gmail.com
+#   Shopify API (c) 2006-2015 Shopify Inc.
 #
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -20,49 +20,50 @@
 
 ########### Product functions ########### 
 #' @templateVar name Product
+#' @templateVar urlSlug products/product
 #' @template api
 NULL
 
-## GET /admin/products.json
+## GET /admin/api/#{api_version}/products.json
 ## Receive a list of all Products
 #' @rdname Product
 getProducts <- function(...) {
-    .fetchAll("products", ...)
+    private$.fetchAll("products", ...)
 }
 
-## GET /admin/products/count.json
+## GET /admin/api/#{api_version}/products/count.json
 ## Receive a count of all Products
 #' @rdname Product
 getProductsCount <- function(...) {
-    .request(.url("products","count"), ...)$count
+    private$.request(private$.url("products","count"), ...)$count
 }
 
-## GET /admin/products/#{id}.json
+## GET /admin/api/#{api_version}/products/#{id}.json
 ## Receive a single Product
 #' @rdname Product
 getProduct <- function(productId, ...) {
-    .request(.url("products",productId), ...)$product
+    private$.request(private$.url("products",productId), ...)$product
 }
 
-## POST /admin/products.json
+## POST /admin/api/#{api_version}/products.json
 ## Create a new Product
 #' @rdname Product
 createProduct <- function(product, ...) {
-    product <- .wrap(product, "product", check=FALSE)
-    .request("products", reqType="POST", data=product, ...)$product
+    product <- private$.wrap(product, "product", check=FALSE)
+    private$.request("products", reqType="POST", data=product, ...)$product
 }
 
-## PUT /admin/products/#{id}.json
+## PUT /admin/api/#{api_version}/products/#{id}.json
 ## Modify an existing Product
 #' @rdname Product
 modifyProduct <- function(product, ...) {
-    product <- .wrap(product, "product")
-    .request(.url("products",product$product$id), reqType="PUT", data=product, ...)$product
+    product <- private$.wrap(product, "product")
+    private$.request(private$.url("products",product$product$id), reqType="PUT", data=product, ...)$product
 }
 
-## DELETE /admin/products/#{id}.json
+## DELETE /admin/api/#{api_version}/products/#{id}.json
 ## Remove a product from the database
 #' @rdname Product
 deleteProduct <- function(productId, ...) {
-    .request(.url("products",productId), reqType="DELETE", ...)
+    private$.request(private$.url("products",productId), reqType="DELETE", ...)
 }

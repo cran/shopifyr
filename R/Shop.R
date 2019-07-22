@@ -1,8 +1,8 @@
 #
 #   shopifyr: An R Interface to the Shopify API
 #
-#   Copyright (C) 2014 Charlie Friedemann cfriedem @ gmail.com
-#   Shopify API (c) 2006-2014 Shopify Inc.
+#   Copyright (C) 2015 Charlie Friedemann cfriedem @ gmail.com
+#   Shopify API (c) 2006-2015 Shopify Inc.
 #
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -20,15 +20,16 @@
 
 ########### Shop functions ########### 
 #' @templateVar name Shop
+#' @templateVar urlSlug store_properties/shop
 #' @templateVar default.params FALSE
 #' @templateVar default.return FALSE
 #' @return a list corresponding to a Shop
 #' @template api
 NULL
 
-## GET /admin/shop.json
+## GET /admin/api/#{api_version}/shop.json
 ## Receive a single Shop
 #' @rdname Shop
 getShop <- function(...) {
-    .request("shop", ...)$shop
+    private$.request("shop", ...)$shop
 }

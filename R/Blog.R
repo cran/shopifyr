@@ -1,8 +1,8 @@
 #
 #   shopifyr: An R Interface to the Shopify API
 #
-#   Copyright (C) 2014 Charlie Friedemann cfriedem @ gmail.com
-#   Shopify API (c) 2006-2014 Shopify Inc.
+#   Copyright (C) 2015 Charlie Friedemann cfriedem @ gmail.com
+#   Shopify API (c) 2006-2015 Shopify Inc.
 #
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -20,49 +20,50 @@
 
 ########### Blog functions ########### 
 #' @templateVar name Blog
+#' @templateVar urlSlug online_store/blog
 #' @template api
 NULL
 
-## GET /admin/blogs.json
+## GET /admin/api/#{api_version}/blogs.json
 ## Receive a list of all Blogs
 #' @rdname Blog
 getBlogs <- function(...) {
-    .request("blogs", ...)$blogs
+    private$.request("blogs", ...)$blogs
 }
 
-## GET /admin/blogs/count.json
+## GET /admin/api/#{api_version}/blogs/count.json
 ## Receive a count of all Blogs
 #' @rdname Blog
 getBlogsCount <- function(...) {
-    .request(.url("blogs","count"), ...)$count
+    private$.request(private$.url("blogs","count"), ...)$count
 }
 
-## GET /admin/blogs/#{id}.json
+## GET /admin/api/#{api_version}/blogs/#{id}.json
 ## Receive a single Blog
 #' @rdname Blog
 getBlog <- function(blogId, ...) {
-    .request(.url("blogs",blogId), ...)$blog
+    private$.request(private$.url("blogs",blogId), ...)$blog
 }
 
-## POST /admin/blogs.json
+## POST /admin/api/#{api_version}/blogs.json
 ## Create a new Blog
 #' @rdname Blog
 createBlog <- function(blog, ...) {
-    blog <- .wrap(blog, "blog", check=FALSE)
-    .request("blogs", reqType="POST", data=blog, ...)$blog
+    blog <- private$.wrap(blog, "blog", check=FALSE)
+    private$.request("blogs", reqType="POST", data=blog, ...)$blog
 }
 
-## PUT /admin/blogs/#{id}.json
+## PUT /admin/api/#{api_version}/blogs/#{id}.json
 ## Modify an existing Blog
 #' @rdname Blog
 modifyBlog <- function(blog, ...) {
-    blog <- .wrap(blog, "blog")
-    .request(.url("blogs",blog$blog$id), reqType="PUT", data=blog, ...)$blog
+    blog <- private$.wrap(blog, "blog")
+    private$.request(private$.url("blogs",blog$blog$id), reqType="PUT", data=blog, ...)$blog
 }
 
-## DELETE /admin/blogs/#{id}.json
+## DELETE /admin/api/#{api_version}/blogs/#{id}.json
 ## Remove a Blog from the database
 #' @rdname Blog
 deleteBlog <- function(blogId, ...) {
-    .request(.url("blogs",blogId), reqType="DELETE", ...)
+    private$.request(private$.url("blogs",blogId), reqType="DELETE", ...)
 }

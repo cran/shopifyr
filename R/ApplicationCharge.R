@@ -1,8 +1,8 @@
 #
 #   shopifyr: An R Interface to the Shopify API
 #
-#   Copyright (C) 2014 Charlie Friedemann cfriedem @ gmail.com
-#   Shopify API (c) 2006-2014 Shopify Inc.
+#   Copyright (C) 2015 Charlie Friedemann cfriedem @ gmail.com
+#   Shopify API (c) 2006-2015 Shopify Inc.
 #
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -19,37 +19,39 @@
 #
 
 ########### ApplicationCharge functions ########### 
-#' @templateVar slug charge
 #' @templateVar name ApplicationCharge
+#' @templateVar slug charge
+#' @templateVar article an
+#' @templateVar urlSlug billing/applicationcharge
 #' @template api
 NULL
 
-## POST /admin/application_charges.json
-## Create a new one-time application charge
+## POST /admin/api/#{api_version}/application_charges.json
+## Creates an application charge
 #' @rdname ApplicationCharge
 createApplicationCharge <- function(charge, ...) {
-    charge <- .wrap(charge, "application_charge", check=FALSE)
-    .request("application_charges", reqType="POST", data=charge, ...)$application_charge
+    charge <- private$.wrap(charge, "application_charge", check=FALSE)
+    private$.request("application_charges", reqType="POST", data=charge, ...)$application_charge
 }
 
-## GET /admin/application_charges/#{id}.json
-## Receive a single ApplicationCharge
+## GET /admin/api/#{api_version}/application_charges/#{application_charge_id}.json
+## Retrieves an application charge
 #' @rdname ApplicationCharge
 getApplicationCharge <- function(chargeId, ...) {
-    .request(.url("application_charges",chargeId), ...)$application_charge
+    private$.request(private$.url("application_charges",chargeId), ...)$application_charge
 }
 
-## GET /admin/application_charges.json
-## Retrieve all one-time application charges
+## GET /admin/api/#{api_version}/application_charges.json
+## Retrieves a list of application charges
 #' @rdname ApplicationCharge
 getApplicationCharges <- function(...) {
-    .request("application_charges", ...)$application_charges
+    private$.request("application_charges", ...)$application_charges
 }
 
-## POST /admin/application_charges/#{id}/activate.json
-## Activate a one-time application charge
+## POST /admin/api/#{api_version}/application_charges/#{application_charge_id}/activate.json
+## Activates an application charge
 #' @rdname ApplicationCharge
 activateApplicationCharge <- function(charge, ...) {
-    charge <- .wrap(charge, "application_charge")
-    .request(.url("application_charges",charge$application_charge$id), reqType="POST", data=charge, ...)$application_charge
+    charge <- private$.wrap(charge, "application_charge")
+    private$.request(private$.url("application_charges",charge$application_charge$id), reqType="POST", data=charge, ...)$application_charge
 }

@@ -1,8 +1,8 @@
 #
 #   shopifyr: An R Interface to the Shopify API
 #
-#   Copyright (C) 2014 Charlie Friedemann cfriedem @ gmail.com
-#   Shopify API (c) 2006-2014 Shopify Inc.
+#   Copyright (C) 2015 Charlie Friedemann cfriedem @ gmail.com
+#   Shopify API (c) 2006-2015 Shopify Inc.
 #
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -19,22 +19,37 @@
 #
 
 ########### Location functions ########### 
-#' @param locationId a Location id number
+#' @param locationId a Location id
 #' @templateVar name Location
+#' @templateVar urlSlug inventory/location
 #' @templateVar default.params FALSE
 #' @template api
 NULL
 
-## GET /admin/locations.json
-## Receive a list of all Locations
+## GET /admin/api/#{api_version}/locations.json
+## Retrieves a list of locations
 #' @rdname Location
 getLocations <- function(...) {
-    .request("locations", ...)$locations
+    private$.request("locations", ...)$locations
 }
 
-## GET /admin/locations/#{id}.json
-## Receive a single Location
+## GET /admin/api/#{api_version}/locations/#{location_id}.json
+## Retrieves a single location by its ID
 #' @rdname Location
 getLocation <- function(locationId, ...) {
-    .request(.url("locations",locationId), ...)$location
+    private$.request(private$.url("locations",locationId), ...)$location
+}
+
+## GET /admin/api/#{api_version}/locations/count.json
+## Retrieves a count of locations
+#' @rdname Location
+getLocationsCount <- function(...) {
+    private$.request(private$.url("locations","count"), ...)$count
+}
+
+## GET /admin/api/#{api_version}/locations/#{location_id}/inventory_levels.json
+## Retrieves a list of inventory levels for a location
+#' @rdname Location
+getLocationInventoryLevels <- function(locationId, ...) {
+    private$.request(private$.url("locations",locationId,"inventory_levels"), ...)$inventory_levels
 }

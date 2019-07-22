@@ -1,8 +1,8 @@
 #
 #   shopifyr: An R Interface to the Shopify API
 #
-#   Copyright (C) 2014 Charlie Friedemann cfriedem @ gmail.com
-#   Shopify API (c) 2006-2014 Shopify Inc.
+#   Copyright (C) 2015 Charlie Friedemann cfriedem @ gmail.com
+#   Shopify API (c) 2006-2015 Shopify Inc.
 #
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -24,9 +24,9 @@
 #' @return invisibly returns the \code{\link{ShopifyShop}} object to allow for chaining
 #' @name Announcements
 showAnnouncements <- function(current = TRUE) {
-    if (!is.null(shopInfo$announcement)) {
-        announcement <- shopInfo$announcement
-        if (!current || (Sys.time() < .parseShopifyTimestamp(announcement$expire_at))) {
+    if (!is.null(self$shopInfo$announcement)) {
+        announcement <- self$shopInfo$announcement
+        if (!current || (Sys.time() < private$.parseShopifyTimestamp(announcement$expire_at))) {
             # is valid announcement
             cat(gsub("<br />", "", announcement$rendered_body, fixed=TRUE))
         }

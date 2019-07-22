@@ -1,27 +1,36 @@
 Package: shopifyr
 Type: Package
 Title: An R Interface to the Shopify API
-Version: 0.28
-Date: 2014-07-28
+Version: 1.0.0
+Date: 2019-07-21
 Author: Charlie Friedemann
 Maintainer: Charlie Friedemann <cfriedem@gmail.com>
-Description: An interface to the API of the E-commerce service Shopify
-    (http://docs.shopify.com/api)
+Description: An interface to the Admin API of the E-commerce service Shopify,
+    (<https://help.shopify.com/en/api/reference>).
 URL: https://github.com/charliebone/shopifyr/
 License: GPL-3
-Depends: R (>= 3.0), RCurl
-Imports: R6 (>= 2.0), RJSONIO
-Collate: 'Announcement.R' 'ApplicationCharge.R' 'Article.R' 'Asset.R'
-        'Blog.R' 'CarrierService.R' 'Checkout.R' 'Collect.R'
-        'Comment.R' 'Country.R' 'CustomCollection.R' 'Customer.R'
-        'CustomerGroup.R' 'Event.R' 'Fulfillment.R'
-        'FulfillmentService.R' 'Location.R' 'MetaField.R' 'Order.R'
-        'OrderRisks.R' 'Page.R' 'Product.R' 'ProductImage.R'
-        'ProductVariant.R' 'Province.R' 'RecurringApplicationCharge.R'
-        'Redirect.R' 'Refund.R' 'ScriptTag.R' 'Shop.R' 'private.R'
-        'Webhook.R' 'Transaction.R' 'Theme.R' 'SmartCollection.R'
-        'ShopifyShop.R' 'shopfyr-package.R'
-Packaged: 2014-08-27 15:24:00 UTC; Charlie
+Encoding: UTF-8
+Depends: R (>= 3.0)
+Imports: R6 (>= 2.0), curl, jsonlite
+RoxygenNote: 6.1.1
+Collate: 'AbandonedCheckout.R' 'AccessScope.R' 'Announcement.R'
+        'ApplicationCharge.R' 'ApplicationCredit.R' 'Article.R'
+        'Asset.R' 'Blog.R' 'CarrierService.R' 'Checkout.R' 'Collect.R'
+        'CollectionListing.R' 'Comment.R' 'Country.R'
+        'CustomCollection.R' 'Customer.R' 'CustomerAddress.R'
+        'CustomerSavedSearch.R' 'DiscountCode.R' 'DraftOrder.R'
+        'Event.R' 'Fulfillment.R' 'FulfillmentEvent.R'
+        'FulfillmentService.R' 'GiftCard.R' 'GraphQL.R'
+        'InventoryItem.R' 'InventoryLevel.R' 'Location.R'
+        'MarketingEvent.R' 'MetaField.R' 'Order.R' 'OrderRisks.R'
+        'Page.R' 'Policy.R' 'PriceRule.R' 'Product.R' 'ProductImage.R'
+        'ProductListing.R' 'ProductVariant.R' 'Province.R'
+        'RecurringApplicationCharge.R' 'Redirect.R' 'Refund.R'
+        'Report.R' 'ResourceFeedback.R' 'ScriptTag.R' 'ShippingZone.R'
+        'Shop.R' 'Webhook.R' 'User.R' 'UsageCharge.R' 'Transaction.R'
+        'Theme.R' 'SmartCollection.R' 'private.R' 'ShopifyShop.R'
+        'shopifyr-package.R'
 NeedsCompilation: no
+Packaged: 2019-07-22 01:05:32.415236 UTC; charlie
 Repository: CRAN
-Date/Publication: 2014-08-27 18:04:04
+Date/Publication: 2019-07-22 04:30:02 UTC

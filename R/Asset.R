@@ -1,8 +1,8 @@
 #
 #   shopifyr: An R Interface to the Shopify API
 #
-#   Copyright (C) 2014 Charlie Friedemann cfriedem @ gmail.com
-#   Shopify API (c) 2006-2014 Shopify Inc.
+#   Copyright (C) 2015 Charlie Friedemann cfriedem @ gmail.com
+#   Shopify API (c) 2006-2015 Shopify Inc.
 #
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -19,41 +19,42 @@
 #
 
 ########### Asset functions ########### 
-#' @param themeId a Theme id number
+#' @param themeId a \code{\link{Theme}} id number
 #' @param assetKey an Asset key e.g. \code{"templates/index.liquid"}
-#' @param asset a  list containing Asset fields
+#' @param asset a list containing Asset fields
 #' @templateVar name Asset
+#' @templateVar urlSlug online_store/asset
 #' @templateVar article an
 #' @templateVar default.params FALSE
 #' @template api
 NULL
 
-## GET /admin/themes/#{id}/assets.json
+## GET /admin/api/#{api_version}/themes/#{id}/assets.json
 ## Receive a list of all Assets
 #' @rdname Asset
 getAssets <- function(themeId, ...) {
-    .request(.url("themes",themeId,"assets"), ...)$assets
+    private$.request(private$.url("themes",themeId,"assets"), ...)$assets
 }
 
-## GET /admin/themes/#{id}/assets.json?asset[key]=templates/index.liquid&theme_id=828155753
+## GET /admin/api/#{api_version}/themes/#{id}/assets.json?asset[key]=templates/index.liquid&theme_id=828155753
 ## Receive a single Asset
 #' @rdname Asset
 getAsset <- function(themeId, assetKey, ...) {
-    .request(.url("themes",themeId,"assets"), `asset[key]`=assetKey, theme_id=themeId, ...)$asset
+    private$.request(private$.url("themes",themeId,"assets"), `asset[key]`=assetKey, theme_id=themeId, ...)$asset
 }
 
-## PUT /admin/themes/#{id}/assets.json
+## PUT /admin/api/#{api_version}/themes/#{id}/assets.json
 ## Creating or Modifying an Asset
 #' @rdname Asset
 #' @aliases modifyAsset
 createAsset <- modifyAsset <- function(themeId, asset, ...) {
-    asset <- .wrap(asset, "asset", check="key")
-    .request(.url("themes",themeId,"assets"), reqType="PUT", data=asset, ...)$asset
+    asset <- private$.wrap(asset, "asset", check="key")
+    private$.request(private$.url("themes",themeId,"assets"), reqType="PUT", data=asset, ...)$asset
 }
 
-## DELETE /admin/themes/#{id}/assets.json?asset[key]=assets/bg-body.gif
+## DELETE /admin/api/#{api_version}/themes/#{id}/assets.json?asset[key]=assets/bg-body.gif
 ## Remove a Asset from the database
 #' @rdname Asset
 deleteAsset <- function(themeId, assetKey, ...) {
-    .request(.url("themes",themeId,"assets"), `asset[key]`=assetKey, theme_id=themeId, reqType="DELETE", ...)
+    private$.request(private$.url("themes",themeId,"assets"), `asset[key]`=assetKey, theme_id=themeId, reqType="DELETE", ...)
 }

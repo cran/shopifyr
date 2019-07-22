@@ -1,8 +1,8 @@
 #
 #   shopifyr: An R Interface to the Shopify API
 #
-#   Copyright (C) 2014 Charlie Friedemann cfriedem @ gmail.com
-#   Shopify API (c) 2006-2014 Shopify Inc.
+#   Copyright (C) 2015 Charlie Friedemann cfriedem @ gmail.com
+#   Shopify API (c) 2006-2015 Shopify Inc.
 #
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -19,36 +19,37 @@
 #
 
 ########### Province functions ########### 
-#' @param countryId a Country id number
+#' @param countryId a \code{\link{Country}} id number
 #' @templateVar name Province
+#' @templateVar urlSlug store_properties/province
 #' @template api
 NULL
 
-## GET /admin/countries/#{id}/provinces.json
+## GET /admin/api/#{api_version}/countries/#{id}/provinces.json
 ## Receive a list of all Provinces
 #' @rdname Province
 getProvinces <- function(countryId, ...) {
-    .request(.url("countries",countryId,"provinces"), ...)$provinces
+    private$.request(private$.url("countries",countryId,"provinces"), ...)$provinces
 }
 
-## GET /admin/countries/#{id}/provinces/count.json
+## GET /admin/api/#{api_version}/countries/#{id}/provinces/count.json
 ## Receive a count of all Provinces
 #' @rdname Province
 getProvincesCount <- function(countryId, ...) {
-    .request(.url("countries",countryId,"provinces","count"), ...)$count
+    private$.request(private$.url("countries",countryId,"provinces","count"), ...)$count
 }
 
-## GET /admin/countries/#{id}/provinces/#{id}.json
+## GET /admin/api/#{api_version}/countries/#{id}/provinces/#{id}.json
 ## Receive a single Province
 #' @rdname Province
 getProvince <- function(countryId, provinceId, ...) {
-    .request(.url("countries",countryId,"provinces",provinceId), ...)$province
+    private$.request(private$.url("countries",countryId,"provinces",provinceId), ...)$province
 }
 
-## PUT /admin/countries/#{id}/provinces/#{id}.json
+## PUT /admin/api/#{api_version}/countries/#{id}/provinces/#{id}.json
 ## Modify an existing Province
 #' @rdname Province
 modifyProvince <- function(countryId, province, ...) {
-    province <- .wrap(province, "province")
-    .request(.url("countries",countryId,"provinces",province$province$id), reqType="PUT", data=province, ...)$province
+    province <- private$.wrap(province, "province")
+    private$.request(private$.url("countries",countryId,"provinces",province$province$id), reqType="PUT", data=province, ...)$province
 }

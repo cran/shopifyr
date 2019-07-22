@@ -1,8 +1,8 @@
 #
 #   shopifyr: An R Interface to the Shopify API
 #
-#   Copyright (C) 2014 Charlie Friedemann cfriedem @ gmail.com
-#   Shopify API (c) 2006-2014 Shopify Inc.
+#   Copyright (C) 2015 Charlie Friedemann cfriedem @ gmail.com
+#   Shopify API (c) 2006-2015 Shopify Inc.
 #
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -20,22 +20,23 @@
 
 ########### Checkout functions ########### 
 #' @templateVar name Checkout
+#' @templateVar urlSlug sales_channels/checkout
 #' @templateVar default.params FALSE
 #' @templateVar default.return FALSE
 #' @return a list of Checkouts
 #' @template api
 NULL
 
-## GET /admin/checkouts/count.json
+## GET /admin/api/#{api_version}/checkouts/count.json
 ## Receive a count of all Checkouts
 #' @rdname Checkout
 getCheckoutsCount <- function(...) {
-    .request(.url("checkouts","count"), ...)$count
+    private$.request(private$.url("checkouts","count"), ...)$count
 }
 
-## GET /admin/checkouts.json
+## GET /admin/api/#{api_version}/checkouts.json
 ## Receive a list of all Checkouts
 #' @rdname Checkout
 getCheckouts <- function(...) {
-    .fetchAll("checkouts", ...)
+    private$.fetchAll("checkouts", ...)
 }

@@ -1,8 +1,8 @@
 #
 #   shopifyr: An R Interface to the Shopify API
 #
-#   Copyright (C) 2014 Charlie Friedemann cfriedem @ gmail.com
-#   Shopify API (c) 2006-2014 Shopify Inc.
+#   Copyright (C) 2015 Charlie Friedemann cfriedem @ gmail.com
+#   Shopify API (c) 2006-2015 Shopify Inc.
 #
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -19,18 +19,19 @@
 #
 
 ########### Refund functions ########### 
-#' @param orderId an Order id number
+#' @param orderId an \code{\link{Order}} id number
 #' @param refundId a Refund id number
 #' @templateVar name Refund
+#' @templateVar urlSlug orders/refund
 #' @templateVar default.params FALSE
 #' @templateVar default.return FALSE
 #' @return a list corresponding to a Refund
 #' @template api
 NULL
 
-## GET /admin/orders/#{id}/refunds/#{id}.json
+## GET /admin/api/#{api_version}/orders/#{id}/refunds/#{id}.json
 ## Receive a single Refund
 #' @rdname Refund
 getRefund <- function(orderId, refundId, ...) {
-    .request(.url("orders",orderId,"refunds",refundId), ...)$refund
+    private$.request(private$.url("orders",orderId,"refunds",refundId), ...)$refund
 }

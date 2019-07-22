@@ -1,8 +1,8 @@
 #
 #   shopifyr: An R Interface to the Shopify API
 #
-#   Copyright (C) 2014 Charlie Friedemann cfriedem @ gmail.com
-#   Shopify API (c) 2006-2014 Shopify Inc.
+#   Copyright (C) 2015 Charlie Friedemann cfriedem @ gmail.com
+#   Shopify API (c) 2006-2015 Shopify Inc.
 #
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -19,46 +19,46 @@
 #
 
 ########### OrderRisks functions ########### 
-#' @param orderId an Order id number
+#' @param orderId an \code{\link{Order}} id number
 #' @templateVar name OrderRisks
 #' @templateVar slug orderRisk
-#' @templateVar urlSlug order_risks
+#' @templateVar urlSlug orders/order_risk
 #' @template api
 NULL
 
-## POST /admin/orders/#{id}/risks.json
+## POST /admin/api/#{api_version}/orders/#{id}/risks.json
 ## Create a new Order Risks
 #' @rdname OrderRisks
 createOrderRisk <- function(orderId, orderRisk, ...) {
-    orderRisk <- .wrap(orderRisk, "risk", check=FALSE)
-    .request(.url("orders",orderId,"risks"), reqType="POST", data=orderRisk, ...)$risk
+    orderRisk <- private$.wrap(orderRisk, "risk", check=FALSE)
+    private$.request(private$.url("orders",orderId,"risks"), reqType="POST", data=orderRisk, ...)$risk
 }
 
-## GET /admin/orders/#{id}/risks.json
+## GET /admin/api/#{api_version}/orders/#{id}/risks.json
 ## Receive a list of all Order Risks
 #' @rdname OrderRisks
 getOrderRisks <- function(orderId, ...) {
-    .request(.url("orders",orderId,"risks"), ...)$risks
+    private$.request(private$.url("orders",orderId,"risks"), ...)$risks
 }
 
-## GET /admin/orders/#{id}/risks/#{id}.json
+## GET /admin/api/#{api_version}/orders/#{id}/risks/#{id}.json
 ## Receive a single Order Risk
 #' @rdname OrderRisks
 getOrderRisk <- function(orderId, orderRiskId, ...) {
-    .request(.url("orders",orderId,"risks",orderRiskId), ...)$risk
+    private$.request(private$.url("orders",orderId,"risks",orderRiskId), ...)$risk
 }
 
-## PUT /admin/orders/#{id}/risks/#{id}.json
+## PUT /admin/api/#{api_version}/orders/#{id}/risks/#{id}.json
 ## Modify an existing Order Risks
 #' @rdname OrderRisks
 modifyOrderRisk <- function(orderId, orderRisk, ...) {
-    orderRisk <- .wrap(orderRisk, "risk")
-    .request(.url("orders",orderId,"risks",orderRisk$risk$id), reqType="PUT", data=orderRisk, ...)$risk
+    orderRisk <- private$.wrap(orderRisk, "risk")
+    private$.request(private$.url("orders",orderId,"risks",orderRisk$risk$id), reqType="PUT", data=orderRisk, ...)$risk
 }
 
-## DELETE /admin/orders/#{id}/risks/#{id}.json
+## DELETE /admin/api/#{api_version}/orders/#{id}/risks/#{id}.json
 ## Remove a Order Risks from the database
 #' @rdname OrderRisks
 deleteOrderRisk <- function(orderId, orderRiskId, ...) {
-    .request(.url("orders",orderId,"risks",orderRiskId), reqType="DELETE", ...)
+    private$.request(private$.url("orders",orderId,"risks",orderRiskId), reqType="DELETE", ...)
 }

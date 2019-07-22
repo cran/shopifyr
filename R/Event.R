@@ -1,8 +1,8 @@
 #
 #   shopifyr: An R Interface to the Shopify API
 #
-#   Copyright (C) 2014 Charlie Friedemann cfriedem @ gmail.com
-#   Shopify API (c) 2006-2014 Shopify Inc.
+#   Copyright (C) 2015 Charlie Friedemann cfriedem @ gmail.com
+#   Shopify API (c) 2006-2015 Shopify Inc.
 #
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -21,27 +21,28 @@
 ########### Event functions ########### 
 #' @param eventId a Event id number
 #' @templateVar name Event
+#' @templateVar urlSlug events/event
 #' @templateVar default.params FALSE
 #' @template api
 NULL
 
-## GET /admin/events.json
+## GET /admin/api/#{api_version}/events.json
 ## Receive a list of all Events
 #' @rdname Event
 getEvents <- function(...) {
-    .fetchAll("events", ...)
+    private$.fetchAll("events", ...)
 }
 
-## GET /admin/events/#{id}.json
+## GET /admin/api/#{api_version}/events/#{id}.json
 ## Receive a single Event
 #' @rdname Event
 getEvent <- function(eventId, ...) {
-    .request(.url("events",eventId), ...)$event
+    private$.request(private$.url("events",eventId), ...)$event
 }
 
-## GET /admin/events/count.json
+## GET /admin/api/#{api_version}/events/count.json
 ## Receive a count of all Events
 #' @rdname Event
 getEventsCount <- function(...) {
-    .request(.url("events","count"), ...)$count
+    private$.request(private$.url("events","count"), ...)$count
 }

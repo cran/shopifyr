@@ -1,8 +1,8 @@
 #
 #   shopifyr: An R Interface to the Shopify API
 #
-#   Copyright (C) 2014 Charlie Friedemann cfriedem @ gmail.com
-#   Shopify API (c) 2006-2014 Shopify Inc.
+#   Copyright (C) 2015 Charlie Friedemann cfriedem @ gmail.com
+#   Shopify API (c) 2006-2015 Shopify Inc.
 #
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -19,36 +19,37 @@
 #
 
 ########### Transaction functions ########### 
-#' @param orderId an Order id number
+#' @param orderId an \code{\link{Order}} id number
 #' @templateVar name Transaction
+#' @templateVar urlSlug orders/transaction
 #' @template api
 NULL
 
-## GET /admin/orders/#{id}/transactions.json
+## GET /admin/api/#{api_version}/orders/#{id}/transactions.json
 ## Receive a list of all Transactions
 #' @rdname Transaction
 getTransactions <- function(orderId, ...) {
-    .request(.url("orders",orderId,"transactions"), ...)$transactions
+    private$.request(private$.url("orders",orderId,"transactions"), ...)$transactions
 }
 
-## GET /admin/orders/#{id}/transactions/count.json
+## GET /admin/api/#{api_version}/orders/#{id}/transactions/count.json
 ## Receive a count of all Transactions
 #' @rdname Transaction
 getTransactionsCount <- function(orderId, ...) {
-    .request(.url("orders",orderId,"transactions","count"), ...)$count
+    private$.request(private$.url("orders",orderId,"transactions","count"), ...)$count
 }
 
-## GET /admin/orders/#{id}/transactions/#{id}.json
+## GET /admin/api/#{api_version}/orders/#{id}/transactions/#{id}.json
 ## Receive a single Transaction
 #' @rdname Transaction
 getTransaction <- function(orderId, transactionId, ...) {
-    .request(.url("orders",orderId,"transactions",transactionId), ...)$transaction
+    private$.request(private$.url("orders",orderId,"transactions",transactionId), ...)$transaction
 }
 
-## POST /admin/orders/#{id}/transactions.json
+## POST /admin/api/#{api_version}/orders/#{id}/transactions.json
 ## Create a new Transaction
 #' @rdname Transaction
 createTransaction <- function(orderId, transaction, ...) {
-    transaction <- .wrap(transaction, "transaction", "kind")
-    .request(.url("orders",orderId,"transactions"), reqType="POST", data=transaction, ...)$transaction
+    transaction <- private$.wrap(transaction, "transaction", "kind")
+    private$.request(private$.url("orders",orderId,"transactions"), reqType="POST", data=transaction, ...)$transaction
 }

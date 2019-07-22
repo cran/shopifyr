@@ -1,8 +1,8 @@
 #
 #   shopifyr: An R Interface to the Shopify API
 #
-#   Copyright (C) 2014 Charlie Friedemann cfriedem @ gmail.com
-#   Shopify API (c) 2006-2014 Shopify Inc.
+#   Copyright (C) 2015 Charlie Friedemann cfriedem @ gmail.com
+#   Shopify API (c) 2006-2015 Shopify Inc.
 #
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -19,53 +19,53 @@
 #
 
 ########### ProductVariant functions ########### 
-#' @param productId a Product id number
+#' @param productId a \code{\link{Product}} id number
 #' @templateVar name ProductVariant
 #' @templateVar slug variant
-#' @templateVar urlSlug product_variant
+#' @templateVar urlSlug products/product_variant
 #' @template api
 NULL
 
-## GET /admin/products/#{id}/variants.json
+## GET /admin/api/#{api_version}/products/#{id}/variants.json
 ## Receive a list of all Product Variants
 #' @rdname ProductVariant
 getProductVariants <- function(productId, ...) {
-    .fetchAll(.url("products",productId,"variants"), "variants", ...)
+    private$.fetchAll(private$.url("products",productId,"variants"), "variants", ...)
 }
 
-## GET /admin/products/#{id}/variants/count.json
+## GET /admin/api/#{api_version}/products/#{id}/variants/count.json
 ## Receive a count of all Product Variants
 #' @rdname ProductVariant
 getProductVariantsCount <- function(productId, ...) {
-    .request(.url("products",productId,"variants","count"), ...)$count
+    private$.request(private$.url("products",productId,"variants","count"), ...)$count
 }
 
-## GET /admin/variants/#{id}.json
+## GET /admin/api/#{api_version}/variants/#{id}.json
 ## Receive a single Product Variant
 #' @rdname ProductVariant
 getProductVariant<- function(variantId, ...) {
-    .request(.url("variants",variantId), ...)$variant
+    private$.request(private$.url("variants",variantId), ...)$variant
 }
 
-## POST /admin/products/#{id}/variants.json
+## POST /admin/api/#{api_version}/products/#{id}/variants.json
 ## Create a new Product Variant
 #' @rdname ProductVariant
 createProductVariant<- function(productId, variant, ...) {
-    variant <- .wrap(variant, "variant", check=FALSE)
-    .request(.url("products",productId,"variants"), reqType="POST", data=variant, ...)$variant
+    variant <- private$.wrap(variant, "variant", check=FALSE)
+    private$.request(private$.url("products",productId,"variants"), reqType="POST", data=variant, ...)$variant
 }
 
-## PUT /admin/variants/#{id}.json
+## PUT /admin/api/#{api_version}/variants/#{id}.json
 ## Modify an existing Product Variant
 #' @rdname ProductVariant
 modifyProductVariant<- function(productId, variant, ...) {
-    variant <- .wrap(variant, "variant")
-    .request(.url("variants", variant$variant$id), reqType="PUT", data=variant, ...)$variant
+    variant <- private$.wrap(variant, "variant")
+    private$.request(private$.url("variants", variant$variant$id), reqType="PUT", data=variant, ...)$variant
 }
 
-## DELETE /admin/products/#{id}/variants/#{id}.json
+## DELETE /admin/api/#{api_version}/products/#{id}/variants/#{id}.json
 ## Remove a Product Variant from the database
 #' @rdname ProductVariant
 deleteProductVariant<- function(productId, variantId, ...) {
-    .request(.url("products",productId,"variants", variantId), reqType="DELETE", ...)
+    private$.request(private$.url("products",productId,"variants", variantId), reqType="DELETE", ...)
 }

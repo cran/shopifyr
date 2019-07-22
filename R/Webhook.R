@@ -1,8 +1,8 @@
 #
 #   shopifyr: An R Interface to the Shopify API
 #
-#   Copyright (C) 2014 Charlie Friedemann cfriedem @ gmail.com
-#   Shopify API (c) 2006-2014 Shopify Inc.
+#   Copyright (C) 2015 Charlie Friedemann cfriedem @ gmail.com
+#   Shopify API (c) 2006-2015 Shopify Inc.
 #
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -20,49 +20,50 @@
 
 ########### Webhook functions ########### 
 #' @templateVar name Webhook
+#' @templateVar urlSlug events/webhook
 #' @template api
 NULL
 
-## GET /admin/webhooks.json
+## GET /admin/api/#{api_version}/webhooks.json
 ## Receive a list of all Webhooks
 #' @rdname Webhook
 getWebhooks <- function(...) {
-    .fetchAll("webhooks", ...)
+    private$.fetchAll("webhooks", ...)
 }
 
-## GET /admin/webhooks/count.json
+## GET /admin/api/#{api_version}/webhooks/count.json
 ## Receive a count of all Webhooks
 #' @rdname Webhook
 getWebhooksCount <- function(...) {
-    .request(.url("webhooks","count"), ...)$count
+    private$.request(private$.url("webhooks","count"), ...)$count
 }
 
-## GET /admin/webhooks/#{id}.json
+## GET /admin/api/#{api_version}/webhooks/#{id}.json
 ## Receive a single Webhook
 #' @rdname Webhook
 getWebhook <- function(webhookId, ...) {
-    .request(.url("webhooks",webhookId), ...)$webhook
+    private$.request(private$.url("webhooks",webhookId), ...)$webhook
 }
 
-## POST /admin/webhooks.json
+## POST /admin/api/#{api_version}/webhooks.json
 ## Create a new Webhook
 #' @rdname Webhook
 createWebhook <- function(webhook, ...) {
-    webhook <- .wrap(webhook, "webhook", check=c("address","topic"))
-    .request("webhooks", reqType="POST", data=webhook, ...)$webhook
+    webhook <- private$.wrap(webhook, "webhook", check=c("address","topic"))
+    private$.request("webhooks", reqType="POST", data=webhook, ...)$webhook
 }
 
-## PUT /admin/webhooks/#{id}.json
+## PUT /admin/api/#{api_version}/webhooks/#{id}.json
 ## Modify an existing Webhook
 #' @rdname Webhook
 modifyWebhook <- function(webhook, ...) {
-    webhook <- .wrap(webhook, "webhook")
-    .request(.url("webhooks",webhook$webhook$id), reqType="PUT", data=webhook, ...)$webhook
+    webhook <- private$.wrap(webhook, "webhook")
+    private$.request(private$.url("webhooks",webhook$webhook$id), reqType="PUT", data=webhook, ...)$webhook
 }
 
-## DELETE /admin/webhooks/#{id}.json
+## DELETE /admin/api/#{api_version}/webhooks/#{id}.json
 ## Remove a Webhook from the database
 #' @rdname Webhook
 deleteWebhook <- function(webhookId, ...) {
-    .request(.url("webhooks",webhookId), reqType="DELETE", ...)
+    private$.request(private$.url("webhooks",webhookId), reqType="DELETE", ...)
 }

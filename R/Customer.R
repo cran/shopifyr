@@ -1,8 +1,8 @@
 #
 #   shopifyr: An R Interface to the Shopify API
 #
-#   Copyright (C) 2014 Charlie Friedemann cfriedem @ gmail.com
-#   Shopify API (c) 2006-2014 Shopify Inc.
+#   Copyright (C) 2015 Charlie Friedemann cfriedem @ gmail.com
+#   Shopify API (c) 2006-2015 Shopify Inc.
 #
 #   This program is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -21,63 +21,64 @@
 ########### Customer functions ########### 
 #' @param query a query string to use when searching Customer records
 #' @templateVar name Customer
+#' @templateVar urlSlug customers/customer
 #' @template api
 NULL
 
-## GET /admin/customers.json
+## GET /admin/api/#{api_version}/customers.json
 ## Receive a list of all Customers
 #' @rdname Customer
 getCustomers <- function(...) {
-    .fetchAll("customers", ...)
+    private$.fetchAll("customers", ...)
 }
 
-## GET /admin/customers/search.json?query=Bob country:United States
+## GET /admin/api/#{api_version}/customers/search.json?query=Bob country:United States
 ## Search for customers matching supplied query
 #' @rdname Customer
 searchCustomers <- function(query, ...) {
-    .fetchAll(.url("customers","search"), "customers", query=query, ...)
+    private$.fetchAll(private$.url("customers","search"), "customers", query=query, .queryParam="query", ...)
 }
 
-## GET /admin/customers/#{id}.json
+## GET /admin/api/#{api_version}/customers/#{id}.json
 ## Receive a single Customer
 #' @rdname Customer
 getCustomer <- function(customerId, ...) {
-    .request(.url("customers",customerId), ...)$customer
+    private$.request(private$.url("customers",customerId), ...)$customer
 }
 
-## POST /admin/customers.json
+## POST /admin/api/#{api_version}/customers.json
 ## Create a new Customer
 #' @rdname Customer
 createCustomer <- function(customer, ...) {
-    customer <- .wrap(customer, "customer", check=FALSE)
-    .request("customers", reqType="POST", data=customer, ...)$customer
+    customer <- private$.wrap(customer, "customer", check=FALSE)
+    private$.request("customers", reqType="POST", data=customer, ...)$customer
 }
 
-## PUT /admin/customers/#{id}.json
+## PUT /admin/api/#{api_version}/customers/#{id}.json
 ## Modify an existing Customer
 #' @rdname Customer
 modifyCustomer <- function(customer, ...) {
-    customer <- .wrap(customer, "customer")
-    .request(.url("customers",customer$customer$id), reqType="PUT", data=customer, ...)$customer
+    customer <- private$.wrap(customer, "customer")
+    private$.request(private$.url("customers",customer$customer$id), reqType="PUT", data=customer, ...)$customer
 }
 
-## DELETE /admin/customers/#{id}.json
+## DELETE /admin/api/#{api_version}/customers/#{id}.json
 ## Remove a Customer from the database
 #' @rdname Customer
 deleteCustomer <- function(customerId, ...) {
-    .request(.url("customers",customerId), reqType="DELETE", ...)
+    private$.request(private$.url("customers",customerId), reqType="DELETE", ...)
 }
 
-## GET /admin/customers/count.json
+## GET /admin/api/#{api_version}/customers/count.json
 ## Receive a count of all Customers
 #' @rdname Customer
 getCustomersCount <- function(...) {
-    .request(.url("customers","count"), ...)$count
+    private$.request(private$.url("customers","count"), ...)$count
 }
 
-## GET /admin/orders.json?customer_id=207119551
+## GET /admin/api/#{api_version}/orders.json?customer_id=207119551
 ## Find orders belonging to this customer
 #' @rdname Customer
 getCustomerOrders <- function(customerId, ...) {
-    .request("orders", customer_id=customerId, ...)$orders
+    private$.request("orders", customer_id=customerId, ...)$orders
 }
